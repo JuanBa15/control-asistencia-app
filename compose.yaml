@@ -1,0 +1,62 @@
+services:
+    postgres-asistencia:
+        image: postgres:17
+        container_name: postgres-asistencia
+        restart: unless-stopped
+        
+        environment:
+            POSTGRES_USER: asistencia_admin
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: asistencia_db
+            TZ: America/Lima
+
+        ports:
+            - "5434:5432"
+
+        volumes:
+            - datos-asistencia:/var/lib/postgresql/data
+        
+        networks:
+            - red-asistencia
+
+        healthcheck:
+            test: 
+                - CMD-SHELL
+                - pg_isready -U asistencia_admin -d asistencia_db
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
+    crud-asistencia:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+
+        container_name: crud-asistencia
+        restart: unless-stopped
+
+        environment:
+            DB_URL: jdbc:postgresql://postgres-asistencia:5432/asistencia_db
+            DB_PASSWORD: ${DB_PASSWORD}
+
+        ports:
+            - "8080:8080"
+
+        networks:
+            - red-asistencia
+
+        depends_on:
+            # No iniciamos crud-asistencia hasta que PostgreSQL haya alcanzado el estado healthy.
+            postgres-asistencia:
+                condition: service_healthy
+
+volumes:
+    datos-asistencia:
+        name: datos-asistencia
+
+networks:
+    red-asistencia:
+        name: red-asistencia
+        driver: bridge
+
+
