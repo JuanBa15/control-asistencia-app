@@ -1,5 +1,7 @@
 package com.asistencia.crud.model;
 
+import com.asistencia.crud.enums.sucursal.EstadoSucursal;
+import com.asistencia.crud.enums.sucursal.Pais;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,10 +13,10 @@ public class Sucursal {
 
     private Integer idSucursal;
     private String nombre;
-    private String pais;
+    private Pais pais;
     private String ciudad;
     private String zonaHoraria;
-    private String estado;
+    private EstadoSucursal estado;
     // Se utiliza OffsetDateTime porque fecha_creacion es TIMESTAMPTZ en PostgreSQL,
     // lo que permite representar la fecha y hora junto con su desplazamiento respecto a UTC.
     private OffsetDateTime fechaCreacion;

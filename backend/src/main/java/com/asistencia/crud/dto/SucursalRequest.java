@@ -1,5 +1,7 @@
 package com.asistencia.crud.dto;
 
+import com.asistencia.crud.enums.sucursal.EstadoSucursal;
+import com.asistencia.crud.enums.sucursal.Pais;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,10 +10,10 @@ import lombok.Setter;
 public class SucursalRequest {
 
     private String nombre;
-    private String pais;
+    private Pais pais;
     private String ciudad;
     private String zonaHoraria;
-    private String estado;
+    private EstadoSucursal estado;
 
     /*
     * No agregamos idSucursal ni fechaCreacion, porque son datos que el propio

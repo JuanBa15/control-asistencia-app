@@ -1,5 +1,7 @@
 package com.asistencia.crud.controller;
 
+import com.asistencia.crud.enums.feriado.EstadoFeriado;
+import com.asistencia.crud.enums.feriado.TipoFeriado;
 import com.asistencia.crud.model.Feriado;
 import com.asistencia.crud.service.FeriadoService;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,9 +34,9 @@ public class FeriadoControllerTest {
         feriadoEsperado.setIdSucursal(1);
         feriadoEsperado.setFecha(LocalDate.of(2026, 7, 28));
         feriadoEsperado.setNombre("Fiestas Patrias");
-        feriadoEsperado.setTipo("NACIONAL");
+        feriadoEsperado.setTipo(TipoFeriado.NACIONAL);
         feriadoEsperado.setLaborable(false);
-        feriadoEsperado.setEstado("VIGENTE");
+        feriadoEsperado.setEstado(EstadoFeriado.VIGENTE);
 
         // Cuando el Controller solicite al Service el feriado 1, responde con este objeto.
         Mockito.when(feriadoService.buscarPorId(id))
@@ -49,9 +51,9 @@ public class FeriadoControllerTest {
         assertEquals(1, resultado.getIdSucursal());
         assertEquals(LocalDate.of(2026, 7, 28), resultado.getFecha());
         assertEquals("Fiestas Patrias", resultado.getNombre());
-        assertEquals("NACIONAL", resultado.getTipo());
+        assertEquals(TipoFeriado.NACIONAL, resultado.getTipo());
         assertFalse(resultado.getLaborable());
-        assertEquals("VIGENTE", resultado.getEstado());
+        assertEquals(EstadoFeriado.VIGENTE, resultado.getEstado());
     }
 
     @Test

@@ -1,6 +1,8 @@
 package com.asistencia.crud.controller;
 
 import com.asistencia.crud.controller.SucursalController;
+import com.asistencia.crud.enums.sucursal.EstadoSucursal;
+import com.asistencia.crud.enums.sucursal.Pais;
 import com.asistencia.crud.model.Sucursal;
 import com.asistencia.crud.service.SucursalService;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,10 +35,10 @@ public class SucursalControllerTest {
         Sucursal sucursalEsperada = new Sucursal();
         sucursalEsperada.setIdSucursal(id);
         sucursalEsperada.setNombre("Sucursal Lima");
-        sucursalEsperada.setPais("PERU");
+        sucursalEsperada.setPais(Pais.PERU);
         sucursalEsperada.setCiudad("Lima");
         sucursalEsperada.setZonaHoraria("America/Lima");
-        sucursalEsperada.setEstado("ACTIVA");
+        sucursalEsperada.setEstado(EstadoSucursal.ACTIVA);
         sucursalEsperada.setFechaCreacion(fechaCreacion);
 
         Mockito.when(sucursalService.buscarPorId(id))
@@ -47,10 +49,10 @@ public class SucursalControllerTest {
         assertNotNull(resultado);
         assertEquals(id, resultado.getIdSucursal());
         assertEquals("Sucursal Lima", resultado.getNombre());
-        assertEquals("PERU", resultado.getPais());
+        assertEquals(Pais.PERU, resultado.getPais());
         assertEquals("Lima", resultado.getCiudad());
         assertEquals("America/Lima", resultado.getZonaHoraria());
-        assertEquals("ACTIVA", resultado.getEstado());
+        assertEquals(EstadoSucursal.ACTIVA, resultado.getEstado());
         assertEquals(fechaCreacion, resultado.getFechaCreacion());
     }
 
