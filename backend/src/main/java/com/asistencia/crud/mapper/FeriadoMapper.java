@@ -14,50 +14,43 @@ import java.util.List;
 @Mapper
 public interface FeriadoMapper {
 
-    @Select("""
+    public static final String SELECT_BASE = """
         SELECT
-            id_feriado,
+            f.id_feriado,
+            f.id_sucursal,
+            f.fecha,
+            f.nombre,
+            f.tipo,
+            f.laborable,
+            f.estado
+        FROM feriado f
+        """;
+
+    @Select(SELECT_BASE)
+    List<Feriado> listarTodos();
+
+    @Select(SELECT_BASE + """
+            WHERE f.id_feriado = #{id}
+            """)
+    Feriado buscarPorId(@Param("id") Integer id);
+
+    @Insert("""
+        INSERT INTO feriado (
             id_sucursal,
             fecha,
             nombre,
             tipo,
             laborable,
             estado
-        FROM feriado
-        """)
-    List<Feriado> listarTodos();
-
-    @Select("""
-    SELECT
-        id_feriado,
-        id_sucursal,
-        fecha,
-        nombre,
-        tipo,
-        laborable,
-        estado
-    FROM feriado
-    WHERE id_feriado = #{id}
-    """)
-    Feriado buscarPorId(@Param("id") Integer id);
-
-    @Insert("""
-    INSERT INTO feriado (
-        id_sucursal,
-        fecha,
-        nombre,
-        tipo,
-        laborable,
-        estado
-    )
-    VALUES (
-        #{idSucursal},
-        #{fecha},
-        #{nombre},
-        #{tipo},
-        #{laborable},
-        #{estado}
-    )
+        )
+        VALUES (
+            #{idSucursal},
+            #{fecha},
+            #{nombre},
+            #{tipo},
+            #{laborable},
+            #{estado}
+        )
     """)
     @Options(
             useGeneratedKeys = true,
@@ -67,15 +60,15 @@ public interface FeriadoMapper {
     int registrar(Feriado feriado);
 
     @Update("""
-    UPDATE feriado
-    SET
-        id_sucursal = #{idSucursal},
-        fecha = #{fecha},
-        nombre = #{nombre},
-        tipo = #{tipo},
-        laborable = #{laborable},
-        estado = #{estado}
-    WHERE id_feriado = #{idFeriado}
+        UPDATE feriado
+        SET
+            id_sucursal = #{idSucursal},
+            fecha = #{fecha},
+            nombre = #{nombre},
+            tipo = #{tipo},
+            laborable = #{laborable},
+            estado = #{estado}
+        WHERE id_feriado = #{idFeriado}
     """)
     int actualizar(Feriado feriado);
 

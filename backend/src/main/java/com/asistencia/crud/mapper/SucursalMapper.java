@@ -8,30 +8,23 @@ import java.util.List;
 @Mapper
 public interface SucursalMapper {
 
-    @Select("""
-        SELECT 
-            id_sucursal, 
-            nombre, 
-            pais, 
-            ciudad, 
-            zona_horaria, 
-            estado, 
-            fecha_creacion
-        FROM sucursal
-        """)
+    public static final String SELECT_BASE = """
+        SELECT
+            s.id_sucursal,
+            s.nombre,
+            s.pais,
+            s.ciudad,
+            s.zona_horaria,
+            s.estado,
+            s.fecha_creacion
+        FROM sucursal s
+        """;
+
+    @Select(SELECT_BASE)
     List<Sucursal> listarTodos();
 
-    @Select("""
-        SELECT 
-            id_sucursal, 
-            nombre, 
-            pais, 
-            ciudad, 
-            zona_horaria, 
-            estado, 
-            fecha_creacion
-        FROM sucursal
-        WHERE id_sucursal = #{id}
+    @Select(SELECT_BASE + """
+        WHERE s.id_sucursal = #{id}
         """)
     Sucursal buscarPorId(@Param("id") Integer id);
 
