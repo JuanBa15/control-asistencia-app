@@ -1,7 +1,12 @@
 package com.asistencia.crud.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class FeriadoRequest {
 
     private Integer idSucursal;
@@ -11,63 +16,4 @@ public class FeriadoRequest {
     private Boolean laborable;
     private String estado;
 
-    public Integer getIdSucursal() {
-
-        return idSucursal;
-    }
-
-    public void setIdSucursal(Integer idSucursal) {
-
-        this.idSucursal = idSucursal;
-    }
-
-    public LocalDate getFecha() {
-
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-
-        this.fecha = fecha;
-    }
-
-    public String getNombre() {
-
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-
-        this.nombre = nombre;
-    }
-
-    public String getTipo() {
-
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-
-        this.tipo = tipo;
-    }
-
-    public Boolean getLaborable() {
-
-        return laborable;
-    }
-
-    public void setLaborable(Boolean laborable) {
-
-        this.laborable = laborable;
-    }
-
-    public String getEstado() {
-
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-
-        this.estado = estado;
-    }
 }
